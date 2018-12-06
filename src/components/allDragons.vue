@@ -1,19 +1,26 @@
 <template>
-  <div class="">
+  <div class="allDragons">
 
   </div>
 </template>
 
 <script>
   export default {
-    name: '',
+    name: 'allDragons',
     data() {
       return {
-
+        allDragons: {
+          name: '',
+          imgUrl: ''
+        }
       }
     },
     computed: {},
-    methods: {}
+    methods: {
+      getAllDragons() {
+        this.$store.dispatch('getAllDragons', this.dragon)
+      }
+    }
   }
 
 </script>

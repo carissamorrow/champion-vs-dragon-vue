@@ -6,11 +6,16 @@
 </template>
 
 <script>
+  import allDragons from './@components/allDragons.vue'
+
   export default {
     name: 'dragon',
     data() {
       return {
-
+        dragon: {
+          name: '',
+          imgUrl: ''
+        }
       }
     },
     computed: {
@@ -18,7 +23,11 @@
         return this.$store.state.dragon
       }
     },
-    methods: {}
+    methods: {
+      showDragon() {
+
+      }
+    }
   }
 
 </script>

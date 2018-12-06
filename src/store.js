@@ -13,15 +13,28 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    targets: {
-      allChampions: [],
-      allDragons: []
-    }
-  },
-  mutations: {
+    allChampions: [],
+    allDragons: [],
+    champion: {},
+    dragon: {}
 
   },
+  mutations: {
+    setActiveDragon(state, dragon) {
+      state.dragon = dragon
+    }
+  },
   actions: {
+    search({ commit, dispatch }, query) {
+      dragonapi.get(query)
+        .then(res => {
+          let data = res.data.results
+          commit('dragon', data)
+        })
+    },
+    setActiveDragon({ commit, dispatch }, dragon) {
+      commit('setActiveDragon', dragon)
+    },
 
   }
 })

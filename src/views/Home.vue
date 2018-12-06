@@ -1,48 +1,62 @@
 <template>
   <div class="home container-fluid">
-    <div class="row">
-      <div class="col">
-        <h1>Welcome to Champion Vs Dragon Vue!</h1>
-      </div>
-    </div>
-    <div class="row justify-content-around mt-5 pb-5">
+    <button :disabled="!ready()" :class="{'btn-success':ready()}" class="btn btn-primary" @click="startGame">Start Game</button>
+    <div class="row justify-content-around">
       <div class="col-5">
-        <h4>Choose Your Champion</h4>
+        <div @click="newGame.dragonId=dragon.id" :class="{'border-success': newGame.dragonId == dragon.id}" class="border rounded m-2"
+          v-for="dragon in dragons">
+          {{dragon.name}}
+          <img :src="dragon.imgUrl" height="150">
+        </div>
       </div>
       <div class="col-5">
-        <h4>Choose Your Enemy</h4>
+        <div @click="newGame.championId=champion.id" :class="{'border-success': newGame.championId == champion.id}"
+          class="border rounded m-2" v-for="champion in champions">
+          {{champion.name}}
+          <img :src="champion.imgUrl" height="150">
+        </div>
+      </div>
 
-      </div>
     </div>
-  </div>
-  </div>
   </div>
 </template>
 
 <script>
-  import allChampions from '@/components/allChampions.vue'
-  import allDragons from '@/components/allDragons.vue'
-
-
-
   export default {
     name: 'home',
     data() {
       return {
-
-      }
-    },
-    computed: {
-      results() {
-        return this.$store.state.searchResults
+        newGame: {
+          dragonId: -1,
+          championId: -1
+        }
       }
     },
     components: {
-      allChampions,
-      allDragons
+    },
+    mounted() {
+      this.$store.dispatch('getDragons')
+      this.$store.dispatch('getChampions')
+    },
+    methods: {
+      startGame() {
+        this.$store.dispatch("startGame", this.newGame)
+      },
+      ready() {
+        return this.newGame.dragonId > -1 && this.newGame.championId > -1
+      }
+    },
+    computed: {
+      dragons() {
+        return this.$store.state.dragons
+      },
+      champions() {
+        return this.$store.state.champions
+      }
     }
   }
 </script>
+
 <style>
   .home {
     font-size: 50px;

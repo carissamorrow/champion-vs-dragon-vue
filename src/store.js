@@ -1,44 +1,64 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import router from './router'
+import router from './router';
 
 let dragonapi = axios.create({
-  baseURL: 'https://dragon-duel.herokuapp.com',
-  withCredentials: true,
-
+  baseURL: "//dragon-duel.herokuapp.com/api"
 })
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    allChampions: [],
-    allDragons: [],
-    champion: {},
-    dragon: {}
+    champions: [],
+    dragons: [],
+    game: {}
 
   },
   mutations: {
-    setActiveDragon(state, dragon) {
-      state.dragon = dragon
+    setDragons(state, dragons) {
+      state.dragons = dragons
+    },
+    setChampions(state, champions) {
+      state.champions = champions
+    },
+    setGame(state, game) {
+      state.game = game
     }
   },
   actions: {
-    search({ commit, dispatch }, query) {
-      dragonapi.get(query)
+    getDragons({ commit }) {
+      dragonapi.get('dragons')
         .then(res => {
-          let data = res.data.results
-          commit('allDragons', data)
+          console.log('dragons', res.data)
+          commit('setDragons', res.data)
+        })
+
+    },
+    getChampions({ commit }) {
+      dragonapi.get('champions')
+        .then(res => {
+          console.log('champions', res.data)
+          commit('setChampions', res.data)
         })
     },
-    getAllDragons({ commit }) {
-      dragonapi.get('All Dragons')
+    getGame({ commit }, gameId) {
+      dragonapi.get("/games/" + gameId)
         .then(res => {
-          commit('allDragons')
+          commit('setGame', res.data)
         })
-        .catch(err => {
-          alert(err)
+    },
+    startGame({ commit }, newGame) {
+      dragonapi.post("/games", newGame)
+        .then(res => {
+          commit('setGame', res.data.game)
+          router.push({ name: 'game', params: { gameId: res.data.game._id } })
+        })
+    },
+    attack({ commit }, payload) {
+      dragonapi.put("/games/" + payload.gameId, payload.attack)
+        .then(res => {
+          commit("setGame", res.data)
         })
     }
   }

@@ -1,38 +1,32 @@
 <template>
-  <div class="dragon">
-
-  </div>
+  <div class="dragon container-fluid">
+    <div class="row">
+      <div class="col-6">
+        {{dragon.name}}
+      </div>
+      <div class="col-6">
+        <img :src="dragon.imgUrl" height="200" alt="">
+      </div>
+      <p class="col-12">{{dragon.currentHP}}</p>
+    </div>
   </div>
 </template>
 
 <script>
-  import allDragons from '@/components/allDragons.vue'
-
   export default {
     name: 'dragon',
     data() {
       return {
-        dragon: {
-          name: '',
-          imgUrl: ''
-        }
       }
     },
     computed: {
-      selectDragon() {
-        return this.$store.state.dragon
+      dragon() {
+        return this.$store.state.game._dragon
       }
     },
-    methods: {
-      showDragon() {
-
-      }
-    }
+    methods: {}
   }
-
 </script>
 
 <style>
-
-
 </style>

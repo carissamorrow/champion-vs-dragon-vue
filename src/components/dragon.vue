@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import allDragons from './@components/allDragons.vue'
+  import allDragons from '@/components/allDragons.vue'
 
   export default {
     name: 'dragon',

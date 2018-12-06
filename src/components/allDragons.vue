@@ -17,8 +17,8 @@
     },
     computed: {},
     methods: {
-      getAllDragons() {
-        this.$store.dispatch('getAllDragons', this.dragon)
+      getDragons() {
+        this.$store.dispatch('getDragons', this.allDragons)
       }
     }
   }

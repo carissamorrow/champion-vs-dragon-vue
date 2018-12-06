@@ -13,7 +13,11 @@
       }
     },
     computed: {},
-    methods: {}
+    methods: {
+      selectChampion() {
+        return this.$store.state.dragon
+      }
+    }
   }
 
 </script>

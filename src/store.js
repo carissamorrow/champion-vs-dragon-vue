@@ -5,7 +5,8 @@ import router from './router'
 
 let dragonapi = axios.create({
   baseURL: 'https://dragon-duel.herokuapp.com/api/dragons',
-
+  withCredentials: true,
+  timeout: 6000
 })
 
 Vue.use(Vuex)
@@ -13,8 +14,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     targets: {
-      champions: [],
-      dragons: []
+      allChampions: [],
+      allDragons: []
     }
   },
   mutations: {

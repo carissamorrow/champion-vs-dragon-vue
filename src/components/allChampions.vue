@@ -1,23 +1,18 @@
 <template>
-  <div class="dragon">
+  <div class="">
 
-  </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'dragon',
+    name: '',
     data() {
       return {
 
       }
     },
-    computed: {
-      selectDragon() {
-        return this.$store.state.dragon
-      }
-    },
+    computed: {},
     methods: {}
   }
 

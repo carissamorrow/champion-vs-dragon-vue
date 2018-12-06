@@ -5,6 +5,10 @@
 </template>
 
 <script>
+
+  import champion from '@/components/champion.vue'
+  import dragon from '@/components/dragon.vue'
+
   export default {
     name: 'game',
     data() {
